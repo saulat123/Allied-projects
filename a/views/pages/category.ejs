@@ -1,0 +1,20 @@
+<%-include('../partials/header') %>
+
+<div class="card-group">
+  <%category.forEach((e)=>{ %>
+  <div class="card1">
+
+    <img
+      src="<%= e.cat_img %>"
+      class="card-img-top"
+      alt="..."
+      onclick="window.location.href='/category/<%= e.cat_id %>/products'"
+    />
+    <div class="card-body">
+      <h2 class="card-title"><%= e.catName %></h2>
+      <p class="card-text"></p>
+    </div>
+  </div>
+  <% }) %>
+</div>
+<%-include('../partials/footer') %>

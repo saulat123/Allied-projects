@@ -1,0 +1,63 @@
+<%-include('../../partials/dashboardHeader') %>
+    <div class="page-wrapper">
+        <div style="margin-left: 45%"><a href="/category/addcategory" class="btn btn-primary">Add New
+                Category</a>
+        </div>
+        <div class="page-content">
+            <h6 class="mb-0 text-uppercase">DataTable Import</h6>
+            <hr />
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example2" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Category Image</th>
+                                    <th>Category Id</th>
+                                    <th>Category Name</th>
+                                    <th>View</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%category.forEach((e)=>{ %>
+                                    <tr>
+                                        <td >
+                                            <object data="../data/uploads/<%= e.cat_img %>"  style="width: 150px; height:120px;">
+                                            <img src="../data/uploads/noImage.png" style="width: 150px; height:120px;" >
+                                        </object>
+                                    </td>
+                                        <td>
+                                            <%= e.cat_id %>
+                                        </td>
+                                        <td>
+                                            <%= e.catName %>
+                                        </td>
+                                       
+                                        <td><a href="/dashboard/viewCategory/<%=e.cat_id%>/products"
+                                                class="btn btn-primary">View</a>
+                                        </td>
+                                           <td><a href='/dashboard/editCategory/<%= e.cat_id %>'
+                                                class="btn btn-primary">Edit</a>
+                                        </td>
+                                        <td>
+                                            <!-- <a href='/dashboard/deleteCategory/<%= e.cat_id %>?method=Delete'
+                                                class="btn btn-primary" >Delete</a> -->
+                                                <input class="btn btn-primary" type="submit" value="Delete" onclick="window.location.href='/dashboard/deleteCategory/<%= e.cat_id %>'" />
+
+                                        </td>
+                                       
+                                    </tr>
+                                    <%})%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+      
+    <%-include('../../partials/dashboardFooter') %>

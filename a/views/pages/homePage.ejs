@@ -1,0 +1,13 @@
+<%-include('../partials/homeHeader') %>
+
+<!-- <div class="card-group"></div> -->
+<%-include('../partials/footer') %>
+
+<script>
+
+  async function res(){ await fetch("/product", {
+     method: "GET",
+   });
+   const data = await res.json();
+   console.log(data);}
+</script>

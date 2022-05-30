@@ -1,0 +1,20 @@
+<%-include('../../partials/dashboardHeader') %>
+
+<div class="card-group">
+  <%product.forEach((e)=>{ %>
+  <div class="card1" style="margin-left: 25%; margin-top: 10%;">
+    <img
+      class="productDetail-img"
+      src="../data/uploads/<%= %>"
+      alt="..."
+      onclick="window.location.href='/category'"
+    />
+    <div class="card-body">
+      <h5 class="card-title"><%= e.pName %></h5>
+      <p class="card-text"><%=e.pCost%></p>
+      <p class="card-text"><%= e.pDescription %></p>
+    </div>
+  </div>
+  <% }) %>
+</div>
+<%-include('../../partials/dashboardFooter') %>

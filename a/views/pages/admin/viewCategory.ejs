@@ -1,0 +1,68 @@
+<%-include('../../partials/dashboardHeader') %>
+    <div class="page-wrapper">
+        <div style="margin-left: 45%"><a href="/category/addcategory" class="btn btn-primary">Add New
+                Category</a>
+        </div>
+        <div class="page-content">
+            <h6 class="mb-0 text-uppercase">DataTable Import</h6>
+            <hr />
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example2" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Category Name</th>
+                                    <th>Product id</th>
+                                    <th>Product Name</th>
+                                    <th>Product Cost</th>
+                                    <th>Product Description</th>
+                                    <th>Featured Product</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% category.products.forEach((e)=>{ %>
+                                    <tr>
+                                        
+                                        <td>
+                                            <%= category.catName %>
+                                        </td>
+                                        <td>
+                                            <%= e.product_id %>
+                                        </td>
+                                        <td>
+                                            <%= e.pName %>
+                                        </td>
+                                        <td>
+                                            <%= e.pCost %>
+                                        </td>
+                                        <td>
+                                            <%= e.pDescription %>
+                                        </td>
+                                        
+                                        <td>
+                                            <%= e.pFeatured %>
+                                        </td>
+                                        
+                                        
+                                        <td><a href='/dashboard/editProduct/<%= e.product_id %>'
+                                                class="btn btn-primary">Edit</a>
+                                        </td>
+                                        <td><a href='/dashboard/deleteProduct/<%= e.product_id %>'
+                                                class="btn btn-primary">Delete</a>
+                                        </td>
+                                       
+                                    </tr>
+                                    <%})%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <%-include('../../partials/dashboardFooter') %>

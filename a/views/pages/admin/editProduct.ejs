@@ -1,0 +1,116 @@
+<%-include('../../partials/dashboardHeader') %>
+
+  <body>
+    <div class="container" style="margin-left: 25%; margin-top: 10%;">
+      <div class="row">
+        <div class="col-md-7 align-center">
+          <div class="card border-top border-0 border-4 border-primary">
+            <div class="card-body p-5">
+              <div class="card-title d-flex align-items-center">
+                <div><i class="bx bxs-user me-1 font-22 text-primary"></i></div>
+                <h5 class="mb-0 text-primary">Edit Product</h5>
+              </div>
+              <hr />
+              <form class="row g-3" enctype="multipart/form-data">
+                <div class="col-md-6">
+                  <label for="Category" class="form-label">Category</label>
+                  <select
+                  class="col-md-6 form-select"
+                  name="cat_id"
+                  id="cat_id"
+                  >
+                  
+                  <option value="<%= product.cat_id%>"
+                    disabled selected><%= product.category.catName%></option>
+                    <% category.forEach((e)=>{ %>    
+                      <option value="<%= e.cat_id%>"><%= e.catName%></option>
+                      <% }) %>
+                      
+                      
+                    </select>
+                  </div>
+                  <img src="/data/uploads/<%= product.pImage%>" style="width:200px; height: 150px; float: right;" >
+                <div class="col-md-6">
+                  <label for="Prdname" class="form-label">Product Name</label>
+                  <input
+                    type="text"
+                    name="pName"
+                    class="form-control"
+                    id="pName"
+                    value="<%= product.pName %>"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="inputprice" class="form-label" 
+                    >Product Cost</label
+                  >
+                  <input
+                    type="text"
+                    name="pCost"
+                    class="form-control"
+                    id="pCost"
+                    value="<%= product.pCost %>"
+
+                  />
+                </div>
+                <div class="col-md-6">
+                  <!-- <label for="inputState" class="form-label ">State</label> -->
+                  <input
+                    type="checkbox"
+                    name="pFeatured"
+                    id="pFeatured"
+                    checked="<%= product.pFeatured %>"
+
+                  />Featured Product?<br />
+                </div>
+                <div class="col-12">
+                  <label for="inputDescription" class="form-label"
+                    >Description</label
+                  >
+                  <textarea
+                    class="form-control"
+                    name="pDescription"
+                    id="pDescription"
+                    placeholder="Product Description"
+                    rows="3"
+                    value="<%= product.pDescription %>"
+
+                  ><%= product.pDescription %></textarea>
+                </div>
+                <div class="mb-3">
+                                <input type="file" class="form-control" name="pImage" aria-label="file example"
+                                                      >
+                                <div class="invalid-feedback"></div>
+                            </div> 
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary px-5">
+                    Edit Product
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const editProduct = document.querySelector("form");
+    editProduct.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(editProduct);
+
+      try {
+        const res = await fetch(
+          "http://localhost:3000/dashboard/editProduct/<%= product.product_id %>",
+          {
+            method: "PUT",
+            body: formData,
+          })
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  </script>
+</html>
+<%-include('../../partials/dashboardFooter') %>

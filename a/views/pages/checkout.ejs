@@ -1,0 +1,40 @@
+<%-include('../partials/authHeader') %>
+
+<div id="login-box">
+  <div class="left">
+    <form>
+      <!-- <input type="text" name="name" id="name" placeholder="name" /><br /> -->
+      <input type="text" name="orderAddress" id="orderAddress" placeholder="order Address" /><br />
+      <input type="submit" value="Proceed to Checkout" />
+    </form>
+  </div>
+</div>
+
+<script>
+  const signinForm = document.querySelector("form");
+  signinForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("http://localhost:3000/auth/signin", {
+        method: "POST",
+        body: JSON.stringify({
+          email: signinForm.email.value,
+          password: signinForm.password.value,
+        }),
+        headers: { "content-Type": "application/json" },
+      });
+      const data = await res.json();
+      console.log(data);
+
+      if (!data.status) {
+        document.getElementById("message").innerHTML = data.error;
+      } else {
+        location.assign(
+          `../user/home?name=${data.data.name}&email=${data.data.email}`
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+</script>

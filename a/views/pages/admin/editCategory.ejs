@@ -1,0 +1,63 @@
+<%-include('../../partials/dashboardHeader') %>
+
+  <body>
+    <div class="container" style="margin-left: 25%; margin-top: 10%;">
+      <div class="row">
+        <div class="col-md-7 align-center">
+          <div class="card border-top border-0 border-4 border-primary">
+            <div class="card-body p-5">
+              <div class="card-title d-flex align-items-center">
+                <div><i class="bx bxs-user me-1 font-22 text-primary"></i></div>
+                <h5 class="mb-0 text-primary">editProduct Category</h5>
+              </div>
+              <hr />
+              <form class="row g-3" enctype="multipart/form-data">
+                <div class="col-md-6">
+                  <label for="Prdname" class="form-label">Category Name</label>
+                  <input
+                    type="text"
+                    name="catName"
+                    class="form-control"
+                    id="catName"
+                    value="<%= category.catName%>"
+                  />
+                </div>
+
+                <img src="/data/uploads/<%= category.cat_img%>" style="width:200px; height: 150px; float: right;" >
+                <div class="mb-3">
+                  <input type="file" class="form-control" name="cat_img" value="<%= category.cat_img%>"   aria-label="file example"> 
+                  <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary px-5">
+                    Edit Category
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const editCategory = document.querySelector("form");
+    editCategory.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(editCategory);
+
+      try {
+        const res = await fetch(
+          "http://localhost:3000/dashboard/editCategory/<%= category.cat_id %>",
+          {
+            method: "PUT",
+            body: formData,
+           }
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  </script>
+</html>
+<%-include('../../partials/dashboardFooter') %>

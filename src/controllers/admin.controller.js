@@ -3,6 +3,7 @@ const db = require("../models");
 const Product = db.product;
 const Category = db.category;
 
+
 /******************** Admin Dashboard ********************/
 const getAdminDashboard = async (req, res) => {
   res.render("pages/admin/dashboard", {

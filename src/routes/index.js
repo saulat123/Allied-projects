@@ -9,6 +9,8 @@ const orderDetailRoute = require("./orderDetail.route");
 const product_image = require("./product_image.route");
 const product_reviews = require("./product_reviews.route");
 const product_specs = require("./product_specs.route");
+const cartRoute = require("./cart.route");
+const cartItemRoute = require("./cart_item.route");
 
 const router = express.Router();
 const routes = [
@@ -16,9 +18,7 @@ const routes = [
     path: "/auth",
     route: authRoute,
   },
-  {path: "/dashboard",
-   route: adminRoute,
- },
+  { path: "/dashboard", route: adminRoute },
 
   {
     path: "/user",
@@ -31,6 +31,14 @@ const routes = [
   {
     path: "/category",
     route: categoryRoute,
+  },
+  {
+    path: "/cart",
+    route: cartRoute,
+  },
+  {
+    path: "/cartItem",
+    route: cartItemRoute,
   },
   {
     path: "/order",

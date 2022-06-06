@@ -60,6 +60,7 @@ const postSignup = async (req, res) => {
 //signinUser Post method
 
 const postSignin = async (req, res) => {
+  console.log(">>>>>>>>>>>>>>>>>>>>>====Acho===>>>>>>>>>>>>>>>>>>>>>>>>>>>");
   const { email, password } = req.body;
   const user = await User.findOne({
     where: {
@@ -72,21 +73,20 @@ const postSignin = async (req, res) => {
     if (comparePass) {
       // generate Token with 2 days expiry age, payload is user id
       const tokenAge = 2 * 24 * 60 * 60 * 1000;
-      const token = generateToken(user.id);
+      const token = generateToken(user.user_id);
 
       //send as cookie, httpOnly from server
       res.cookie("jwt", token, { httpOnly: true, maxAge: tokenAge });
-      
-        res.status(200).json({
-          status: true, 
-          data: {
-            user_id: user.user_id,
-            name: user.name,
-            email: user.email,
-            isAdmin: user.isAdmin,
-          },
-        });
-      
+      res.status(200).json({
+        status: true,
+        data: {
+          user_id: user.user_id,
+          name: user.name,
+          email: user.email,
+          isAdmin: user.isAdmin,
+        },
+      });
+
       // res.redirect("pages/homePage");
     } else {
       res.status(400).json({
@@ -110,11 +110,10 @@ const getSignout = (req, res) => {
 };
 
 // function to generate web token
-const generateToken = (id) => {
+const generateToken = (u_id) => {
   //token secret should be a long & difficult string and in .env file
-  return jwt.sign({ id }, "tokensecret", {
-    expiresIn: 2 * 24 * 60 * 60, //expires in 2 days
-  });
+  const signtoken = jwt.sign({ id: u_id }, "tokensecret"); //expires in 2 days
+  return signtoken;
 };
 
 module.exports = {

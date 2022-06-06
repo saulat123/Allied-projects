@@ -14,6 +14,8 @@ db.orderDetail = require("./orderDetail.model")(sequelize, DataTypes);
 db.product_image = require("./product_image.model")(sequelize, DataTypes);
 db.product_reviews = require("./product_reviews.model")(sequelize, DataTypes);
 db.product_specs = require("./product_specs.model")(sequelize, DataTypes);
+db.cart = require("./cart.model")(sequelize, DataTypes);
+db.cart_item = require("./cart_item.model")(sequelize, DataTypes);
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
@@ -43,5 +45,8 @@ db.orderDetail.belongsTo(db.order, { foreignKey: "order_id" });
 
 db.orderDetail.hasMany(db.product, { foreignKey: "product_id" });
 db.product.belongsTo(db.orderDetail, { foreignKey: "product_id" });
+
+db.cart.hasMany(db.cart_item, { foreignKey: "cart-id" });
+db.cart_item.belongsTo(db.cart, { foreignKey: "cart_id" });
 
 module.exports = db;

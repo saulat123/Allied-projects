@@ -1,7 +1,7 @@
 <%-include('../../partials/dashboardHeader') %>
 <div class="page-wrapper">
-    <div style="margin-left: 45%"><a href="/category/addcategory" class="btn btn-primary">Add New
-                Category</a>
+    <div style="margin-left: 45%"><a href="/dashboard/addProduct" class="btn btn-primary">Add New
+                Product</a>
             </div>
             <div class="page-content">
             <h6 class="mb-0 text-uppercase">DataTable Import</h6>
@@ -41,7 +41,7 @@
                                         </td>
                                         <%category.forEach((cat)=>{if(e.cat_id==cat.cat_id){catName=cat.catName}}) %>
                                         <td> <%= catName %></td>
-                                        <td><%= e.pCost %></td>
+                                        <td>Rs. <%= e.pCost %></td>
                                         <td><%= e.pDescription %></td>
                                         <td><%= e.pFeatured %></td>
                                         <td><a href="/dashboard/viewProduct/<%=e.product_id%>"

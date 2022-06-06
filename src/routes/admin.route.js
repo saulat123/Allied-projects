@@ -11,7 +11,12 @@ router
   .route("/addProduct")
   .get(adminController.getInsertProduct)
   // .post(productController.insertProducts);
-  .post(multer.upload.single("pImage"),productController.insertProducts);
+  .post(multer.upload.single("pImage"), productController.insertProducts);
+
+router
+  .route("/addProduct/uploadImage")
+  .get(adminController.getUploadProductImage)
+  .post(multer.upload.array("pImages", 4), productController.uploadProductImg);
 
 router.route("/viewProduct/:id").get(adminController.getProductbyId);
 router
@@ -21,8 +26,7 @@ router
 
 router
   .route("/deleteProduct/:id")
-  .get(adminController.getDeleteProducts)
-  .delete(adminController.deleteProducts);
+  .get(adminController.deleteProducts);
 
 router.route("/viewCategory/:id/products").get(adminController.getCategorybyId);
 
@@ -31,8 +35,6 @@ router
   .get(adminController.getEditCategory)
   .put(multer.upload.single("cat_img"), adminController.editCategory);
 
-router
-  .route("/deleteCategory/:id")
-  .delete(adminController.deleteCategory);
+router.route("/deleteCategory/:id").delete(adminController.deleteCategory);
 
 module.exports = router;

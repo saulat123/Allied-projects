@@ -93,8 +93,13 @@ const getProductbyId = async (req, res) => {
 };
 
 const getInsertProduct = async (req, res) => {
-  const category= await Category.findAll();
+  // const product=await Product.findAll();
+  const category= await Category.findAll({include: Product});
   res.render("pages/admin/addProduct", {category});
+};
+
+const getUploadProductImage = async (req, res) => {
+  res.render("pages/admin/uploadProductImg");
 };
 
 const getEditProducts = async (req, res) => {
@@ -137,13 +142,6 @@ const editProducts = async (req, res) => {
   // res.send(newProduct);
 };
 
-const getDeleteProducts = async (req, res) => {
-  const product = await Product.findOne({
-    where: { product_id: req.params.id },
-  });
-  // console.log(product.product_id)
-  res.render("pages/admin/deleteProduct", { product });
-};
 
 const deleteProducts = async (req, res) => {
   try {
@@ -152,7 +150,8 @@ const deleteProducts = async (req, res) => {
       where: { product_id: req.params.id },
     });
     console.log(result);
-    res.status(200).json({ status: true, result });
+    // res.status(200).json({ status: true, result });
+    res.redirect("/dashboard/viewProduct")
   } catch (error) {
     res.send(error);
   }
@@ -167,9 +166,9 @@ module.exports = {
   deleteCategory,
   viewProduct,
   getInsertProduct,
+  getUploadProductImage,
   getProductbyId,
   getEditProducts,
   editProducts,
-  getDeleteProducts,
   deleteProducts,
 };

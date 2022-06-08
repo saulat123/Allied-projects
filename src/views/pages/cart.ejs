@@ -19,41 +19,47 @@
               <table class="table table-cart table-mobile">
                 <thead>
                   <tr>
-                    <th>Product</th>
+                    <th>Product Image</th>
+                    <th>Product Name</th>
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Total</th>
+                    
                     <th></th>
                   </tr>
                 </thead>
 
                 <tbody>
+                  <%getCart[0].cart_items.forEach((e)=>{ %>
+
                   <tr>
                     <td class="product-col">
-                      <div class="product">
-                        <figure class="product-media">
-                          <a href="#">
-                            <img
-                              src="assets/images/products/table/product-1.jpg"
-                              alt="Product image"
+                      <div >
+                       
+                          <object data="../data/uploads/<%= e.product.pImage %>" class="card-img-top"
+                            >
+                            <img src="../data/uploads/noImage.png" class="card-img-top"
                             />
-                          </a>
-                        </figure>
+                          </object>
+                       
 
-                        <h3 class="product-title">
-                          <a href="#">Beige knitted elastic runner shoes</a>
-                        </h3>
+                        <!-- <h3 class="product-title">
+                          <a href="#"><%= e.product.pName %></a>
+                        </h3> -->
+                        <td class="price-col"><%= e.product.pName %></td>
+
                         <!-- End .product-title -->
                       </div>
                       <!-- End .product -->
                     </td>
-                    <td class="price-col">$84.00</td>
+                    <td class="price-col">Rs. <%= e.product.pCost%></td>
                     <td class="quantity-col">
                       <div class="cart-product-quantity">
                         <input
                           type="number"
                           class="form-control"
-                          value="1"
+                          name="quantity" 
+                          value="<%= e.quantity%>"
                           min="1"
                           max="10"
                           step="1"
@@ -63,63 +69,33 @@
                       </div>
                       <!-- End .cart-product-quantity -->
                     </td>
-                    <td class="total-col">$84.00</td>
-                    <td class="remove-col">
+                    
+                    <td class="total-col">Rs. <%= e.price%></td>
+                    <!-- <td class="remove-col">
                       <button class="btn-remove">
                         <i class="icon-close"></i>
                       </button>
-                    </td>
+                    </td> -->
+                    <!-- <td><i class="fa fa-trash" aria-hidden="true"></i></td> -->
+                    <td ><a href='/cartItem/deleteItem/<%= e.item_id %>'
+                      
+                      ><i class="fa fa-trash" aria-hidden="true"></i></a>
+              </td>
                   </tr>
-                  <tr>
-                    <td class="product-col">
-                      <div class="product">
-                        <figure class="product-media">
-                          <a href="#">
-                            <img
-                              src="assets/images/products/table/product-2.jpg"
-                              alt="Product image"
-                            />
-                          </a>
-                        </figure>
+                  <%})%>
 
-                        <h3 class="product-title">
-                          <a href="#">Blue utility pinafore denim dress</a>
-                        </h3>
-                        <!-- End .product-title -->
-                      </div>
-                      <!-- End .product -->
-                    </td>
-                    <td class="price-col">$76.00</td>
-                    <td class="quantity-col">
-                      <div class="cart-product-quantity">
-                        <input
-                          type="number"
-                          class="form-control"
-                          value="1"
-                          min="1"
-                          max="10"
-                          step="1"
-                          data-decimals="0"
-                          required
-                        />
-                      </div>
-                      <!-- End .cart-product-quantity -->
-                    </td>
-                    <td class="total-col">$76.00</td>
-                    <td class="remove-col">
-                      <button class="btn-remove">
-                        <i class="icon-close"></i>
-                      </button>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
               <!-- End .table table-wishlist -->
 
+              
               <div class="cart-bottom">
-                <a href="#" class="btn btn-outline-dark-2"
+                <button type="submit" class="btn btn-primary px-5">
+                  Update Cart
+                </button>
+                <!-- <a href="#" class="btn btn-outline-dark-2"
                   ><span>UPDATE CART</span><i class="icon-refresh"></i
-                ></a>
+                ></a> -->
               </div>
               <!-- End .cart-bottom -->
             </div>
@@ -215,7 +191,7 @@
 
                     <tr class="summary-total">
                       <td>Total:</td>
-                      <td>$160.00</td>
+                      <td>$160.00 </td>
                     </tr>
                     <!-- End .summary-total -->
                   </tbody>
@@ -253,5 +229,28 @@
   <i class="icon-arrow-up"></i>
 </button>
 <!-- End .mobile-menu-container -->
+
+
+<script>
+  const editItem = document.querySelector("form");
+  editItem.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(
+        "http://localhost:3000/cartItem/editItem/<%= getCart.cart_id %>",
+        {
+          method: "GET",
+          body: JSON.stringify({
+          quantity: editItem.quantity.value,
+         
+        }),
+        headers: { "content-Type": "application/json" },
+         }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  });
+</script>
 
 <%-include('../partials/footer') %>

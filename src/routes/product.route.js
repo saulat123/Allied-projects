@@ -1,8 +1,9 @@
 const express = require("express");
+const auth=require('../middlewares/auth')
 const router = express.Router();
 const productController = require("../controllers/product.controller");
 
-router.route("/").get(productController.findProducts);
+router.route("/").get(auth.setViewUser,productController.findProducts);
 // router
 //   .route("/addProduct")
 //   .get(productController.getInsertProducts)
